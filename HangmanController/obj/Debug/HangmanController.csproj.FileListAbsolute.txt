@@ -1,0 +1,15 @@
+C:\03_Coding\02 Projects\C#\Hangman\HangmanController\bin\Debug\HangmanController.dll.config
+C:\03_Coding\02 Projects\C#\Hangman\HangmanController\bin\Debug\HangmanController.dll
+C:\03_Coding\02 Projects\C#\Hangman\HangmanController\bin\Debug\HangmanController.pdb
+C:\03_Coding\02 Projects\C#\Hangman\HangmanController\bin\Debug\EntityFramework.dll
+C:\03_Coding\02 Projects\C#\Hangman\HangmanController\bin\Debug\EntityFramework.SqlServer.dll
+C:\03_Coding\02 Projects\C#\Hangman\HangmanController\bin\Debug\HangmanData.dll
+C:\03_Coding\02 Projects\C#\Hangman\HangmanController\bin\Debug\HangmanData.pdb
+C:\03_Coding\02 Projects\C#\Hangman\HangmanController\bin\Debug\HangmanData.dll.config
+C:\03_Coding\02 Projects\C#\Hangman\HangmanController\bin\Debug\EntityFramework.xml
+C:\03_Coding\02 Projects\C#\Hangman\HangmanController\bin\Debug\EntityFramework.SqlServer.xml
+C:\03_Coding\02 Projects\C#\Hangman\HangmanController\obj\Debug\HangmanController.csprojAssemblyReference.cache
+C:\03_Coding\02 Projects\C#\Hangman\HangmanController\obj\Debug\HangmanController.csproj.CoreCompileInputs.cache
+C:\03_Coding\02 Projects\C#\Hangman\HangmanController\obj\Debug\HangmanController.csproj.CopyComplete
+C:\03_Coding\02 Projects\C#\Hangman\HangmanController\obj\Debug\HangmanController.dll
+C:\03_Coding\02 Projects\C#\Hangman\HangmanController\obj\Debug\HangmanController.pdb

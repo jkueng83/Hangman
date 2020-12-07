@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HangmanModelStoreContainer" CdmEntityContainer="HangmanEntities">
+    <EntitySetMapping Name="Word">
+      <EntityTypeMapping TypeName="HangmanModel.Word">
+        <MappingFragment StoreEntitySet="Word">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Word1" ColumnName="Word" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
