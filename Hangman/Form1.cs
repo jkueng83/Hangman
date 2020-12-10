@@ -20,8 +20,6 @@ namespace Hangman
        
         HangmanLogicController _hangmanLogicController;
 
-
-
         public Form1()
         {
             InitializeComponent();
@@ -33,7 +31,6 @@ namespace Hangman
             _hangmanCounter = 0;
 
             _hangmanLogicController = new HangmanLogicController();
-
         }
 
         private void UpdateImage()
@@ -143,8 +140,6 @@ namespace Hangman
         {
             if (e.KeyCode == Keys.Enter)
             {
-
-
                 if (tBoxCharacter.Text.Length == 1)
                 {
                     if (_hangmanLogicController.IsCharacterInWord(tBoxCharacter.Text.ElementAt(0)))
@@ -157,7 +152,29 @@ namespace Hangman
                     }
                 }
 
+                tBoxCharacter.Text = "";
+
+                UpdateWindow();                
             }
         }
+
+        private void UpdateWindow()
+        {
+            UpdateSelectedCharacters();
+            UpdateGameStatus();
+        }
+
+        private void UpdateGameStatus()
+        {
+            lbGameStatus.Text = _hangmanLogicController.GetGameStatus();
+        }
+
+        private void UpdateSelectedCharacters()
+        {
+            lbSelectedCharacters.Text = _hangmanLogicController.GetSelectedCharacters();
+        }
+
+        
+
     }
 }

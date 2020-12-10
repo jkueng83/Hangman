@@ -44,6 +44,8 @@ namespace HangmanLogic
 
             PutCharacterIntoTheWord();
 
+            _wordActualResult = "";
+
             for (int i = 0; i < _guessWord.Length; i++) 
             {
                 _wordActualResult += "_";
@@ -65,15 +67,17 @@ namespace HangmanLogic
 
         public bool IsCharacterInWord(char c)
         {
-            if (_guessWord ==null)
+            if (_guessWord == null)
             {
                 GetNewRandamWord();
             }
 
+            _selectedCharacters += c.ToString();
+
             if (_guessWord.ToUpper().Contains(c.ToString().ToUpper()))
             {
                 //_selectedCharacters.Insert(_selectedCharacters.Length, c.ToString());
-                _selectedCharacters += c.ToString();
+                
                 PutCharacterIntoTheWord();
                 return true;
             }
@@ -86,34 +90,48 @@ namespace HangmanLogic
 
         private void PutCharacterIntoTheWord()
         {
-            
-            foreach (var character in _selectedCharacters)
-            {
-                for (int i = 0; i < _guessWord.Length; i++)
-                {
-                    if (character.ToString().ToUpper().Equals(_guessWord.ElementAt(i).ToString().ToUpper()))
-                    {
+            _wordActualResult = "";
 
-                        // hier weiter
-                        _wordActualResult += _guessWord.ElementAt(i);
-                    }
-                    else
+            foreach (var guessCharacter in _guessWord)
+            {
+                bool isCharacterCorrect = false;
+                foreach (var selectedCharacter in _selectedCharacters)
+                {
+                    if (selectedCharacter.ToString().ToUpper().Equals(guessCharacter.ToString().ToUpper()))
                     {
-                        _wordActualResult += "_";
+                        isCharacterCorrect = true;
+                        break;
                     }
                 }
+
+                if (isCharacterCorrect)
+                {                 
+                    _wordActualResult += guessCharacter;
+                }
+                else
+                {                
+                    _wordActualResult += "_";
+                }
             }
+        }
 
-
-
-                
-                        
+        public string GetSelectedCharacters()
+        {
+            return _selectedCharacters;
         }
 
         public string GetWordResult()
         {
             PutCharacterIntoTheWord();
             return _wordActualResult;
+        }
+
+        public string GetGameStatus()
+        {
+
+
+
+            return "Game status";
         }
        
 
