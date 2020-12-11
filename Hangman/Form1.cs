@@ -14,23 +14,44 @@ namespace Hangman
 {
     public partial class Form1 : Form
     {
-        private Graphics _g;
+        private Graphics _graphics;
         private int _hangmanCounter;
         private Image _myImage;
        
         HangmanLogicController _hangmanLogicController;
 
+        
+        private string _wordActualResult;
+        private string _gameStatus;
+        private string _selectedCharacters;
+
         public Form1()
         {
             InitializeComponent();
 
-             _myImage = Image.FromFile("hangman0.jpg");       
-                        _g = Graphics.FromImage(_myImage);
-            UpdateImage();
+            _hangmanLogicController = new HangmanLogicController(ref pictureBox1, 
+                ref _wordActualResult, ref _gameStatus, ref _selectedCharacters);
+            // RestartHangmanAndLoadHangmanBackground();        
+            _hangmanLogicController.PlayGame(true, "" , ref pictureBox1,
+                ref _wordActualResult, ref _gameStatus, ref _selectedCharacters); ;
 
+            UpdateForm();
+
+        }
+
+        private void UpdateForm()
+        {
+            lbWord.Text = _wordActualResult;
+            lbGameStatus.Text = _gameStatus;
+            lbSelectedCharacters.Text = _selectedCharacters;
+    }
+
+        private void RestartHangmanAndLoadHangmanBackground()
+        {
             _hangmanCounter = 0;
-
-            _hangmanLogicController = new HangmanLogicController();
+            _myImage = Image.FromFile("hangman0.jpg");
+            _graphics = Graphics.FromImage(_myImage);
+            UpdateImage();
         }
 
         private void UpdateImage()
@@ -85,19 +106,18 @@ namespace Hangman
             UpdateImage();
         }
 
-
         private void DrawLine(int x1, int y1, int x2, int y2)
         {
            Pen pen = new Pen(Color.FromArgb(255, 0, 0, 0));
            pen.Width = 5;           
-            _g.DrawLine(pen, x1, y1, x2, y2);           
+            _graphics.DrawLine(pen, x1, y1, x2, y2);           
         }
 
         private void DrawCircle(float x, float y, float diameter)
         {
             Pen pen = new Pen(Color.FromArgb(255, 0, 0, 0));
             pen.Width = 5;
-            _g.DrawEllipse(pen, x, y, diameter, diameter);
+            _graphics.DrawEllipse(pen, x, y, diameter, diameter);
         }
 
         private void DrawCurve(int x1, int y1, int x2, int y2, int x3, int y3)
@@ -105,14 +125,14 @@ namespace Hangman
             Pen pen = new Pen(Color.FromArgb(255, 0, 0, 0));
             pen.Width = 5;
             Point[] points = new Point[] { new Point(x1, y1), new Point(x2, y2), new Point(x3, y3) };
-            _g.DrawCurve(pen, points);
-
+            _graphics.DrawCurve(pen, points);
         }
         
         private void btTest_Click(object sender, EventArgs e)
         {
           
             DrawHangman();
+            _hangmanLogicController.Paint(ref _graphics);
         }
 
         private void btAddNewWord_Click(object sender, EventArgs e)
@@ -128,7 +148,7 @@ namespace Hangman
 
         private void btPlayNewGame_Click(object sender, EventArgs e)
         {
-            lbWord.Text = _hangmanLogicController.GetNewRandamWord();
+          //TODO  _hangmanLogicController.GetNewRandamWord();
         }
 
         private void tBoxCharacter_Click(object sender, EventArgs e)
@@ -174,7 +194,11 @@ namespace Hangman
             lbSelectedCharacters.Text = _hangmanLogicController.GetSelectedCharacters();
         }
 
-        
+        private void btRemoveHangman_Click(object sender, EventArgs e)
+        {          
+            RestartHangmanAndLoadHangmanBackground();
+        }
 
+      
     }
 }
