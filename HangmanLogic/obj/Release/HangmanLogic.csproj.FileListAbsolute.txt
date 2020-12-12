@@ -1,0 +1,15 @@
+C:\03_Coding\02 Projects\C#\Hangman\HangmanLogic\bin\Release\HangmanLogic.dll.config
+C:\03_Coding\02 Projects\C#\Hangman\HangmanLogic\bin\Release\HangmanLogic.dll
+C:\03_Coding\02 Projects\C#\Hangman\HangmanLogic\bin\Release\HangmanLogic.pdb
+C:\03_Coding\02 Projects\C#\Hangman\HangmanLogic\bin\Release\EntityFramework.dll
+C:\03_Coding\02 Projects\C#\Hangman\HangmanLogic\bin\Release\EntityFramework.SqlServer.dll
+C:\03_Coding\02 Projects\C#\Hangman\HangmanLogic\bin\Release\HangmanData.dll
+C:\03_Coding\02 Projects\C#\Hangman\HangmanLogic\bin\Release\HangmanData.pdb
+C:\03_Coding\02 Projects\C#\Hangman\HangmanLogic\bin\Release\HangmanData.dll.config
+C:\03_Coding\02 Projects\C#\Hangman\HangmanLogic\bin\Release\EntityFramework.xml
+C:\03_Coding\02 Projects\C#\Hangman\HangmanLogic\bin\Release\EntityFramework.SqlServer.xml
+C:\03_Coding\02 Projects\C#\Hangman\HangmanLogic\obj\Release\HangmanLogic.csprojAssemblyReference.cache
+C:\03_Coding\02 Projects\C#\Hangman\HangmanLogic\obj\Release\HangmanLogic.csproj.CoreCompileInputs.cache
+C:\03_Coding\02 Projects\C#\Hangman\HangmanLogic\obj\Release\HangmanLogic.csproj.CopyComplete
+C:\03_Coding\02 Projects\C#\Hangman\HangmanLogic\obj\Release\HangmanLogic.dll
+C:\03_Coding\02 Projects\C#\Hangman\HangmanLogic\obj\Release\HangmanLogic.pdb
