@@ -12,64 +12,60 @@ namespace HangmanLogic
 {
     public class HangmanLogicController
     {
-
         private List<Word> _words;
         private HangmanEntities _hangmanEntities;
         private string _guessWord;
         private string _wordActualResult;
-        private string _gameStatus;
+        private string _gameStatusString;
         private string _selectedCharacters;
         private int _hangmanCounter;
         private Image _myImage;
         private Graphics _graphics;
-
+        enum GameStatus { GameIsActive, GameOver, YouWinTheGame };
+        private GameStatus _gameStatus;
 
         public HangmanLogicController(ref PictureBox pBox , ref string wordResult , ref string gameStatus , ref string selectedCharacters  )
         {
             _words = new List<Word>();
             _hangmanEntities = new HangmanEntities();
-         //   _myImage = pBox.Image;
 
             LoadAllWordsFromDatabase();
 
-            RestartHangmanAndLoadHangmanBackground();
+            PlayGame(true, ' ',ref pBox, ref wordResult, ref gameStatus, ref selectedCharacters);
 
             pBox.Image = _myImage ;
-
             wordResult = _wordActualResult;
-            gameStatus = _gameStatus;
+            gameStatus = _gameStatusString;
             selectedCharacters = _selectedCharacters;
-
-
         }
 
 
-        public void PlayGame(bool startNewGame, string selectedCharacter, ref PictureBox pBox, ref string wordResult, ref string gameStatus, ref string selectedCharacters)
+        public void PlayGame(bool startNewGame, char selectedCharacter, ref PictureBox pBox, ref string wordResult, ref string gameStatus, ref string selectedCharacters)
         {
-
             if (startNewGame)
             {
                 RestartHangmanAndLoadHangmanBackground();
             }
-            else
+            else if (_gameStatus == GameStatus.GameIsActive)
             {
-                if (selectedCharacter.Length == 1)
+                _selectedCharacters += selectedCharacter + " ";
+
+                if (IsCharacterInWord(selectedCharacter))
                 {
-                    _selectedCharacters += selectedCharacter;
-
+                    PutCharacterIntoTheWord();
                 }
-            }
+                else
+                {
+                    DrawHangman();
+                }
+            }            
 
-           
-            
+            UpdateGameStatus();
 
             pBox.Image = _myImage;
-
             wordResult = _wordActualResult;
-            gameStatus = _gameStatus;
+            gameStatus = _gameStatusString;
             selectedCharacters = _selectedCharacters;
-
-
         }
 
         private void RestartHangmanAndLoadHangmanBackground()
@@ -77,19 +73,40 @@ namespace HangmanLogic
             LoadAllWordsFromDatabase();
             GetNewRandamWord();
 
-            _gameStatus = "lala"; // TODO status überall ergänzen
-
+            _gameStatus = GameStatus.GameIsActive;
 
             _selectedCharacters = "";
             _hangmanCounter = 0;
             _myImage = Image.FromFile("hangman0.jpg");
             _graphics = Graphics.FromImage(_myImage);
-
+           
             PutCharacterIntoTheWord();
-
+            UpdateGameStatus();
         }
 
-     
+        private void UpdateGameStatus()
+        {
+            if (_wordActualResult.Count(character => character == '_') == 0)
+            {
+                _gameStatus = GameStatus.YouWinTheGame;
+            }   
+
+            switch (_gameStatus)
+            {
+                case GameStatus.GameIsActive:
+                    _gameStatusString = "Game is running";
+                    break;
+                case GameStatus.YouWinTheGame:
+                    _gameStatusString = "You won the Game";
+                    break;
+                case GameStatus.GameOver:
+                    _gameStatusString = "Game Over!! - " + _guessWord;
+                    break;
+                default:
+                    _gameStatusString = "Not defined Game Status"; 
+                    break;
+            }
+        }     
 
         private void LoadAllWordsFromDatabase()
         {
@@ -105,9 +122,7 @@ namespace HangmanLogic
             Random random = new Random();
             int number = random.Next(_words.Count);
 
-            _guessWord = _words.ElementAt(number).Word1;
-
-            
+            _guessWord = _words.ElementAt(number).Word1;            
         }
 
         public void AddNewWord(string word)
@@ -128,12 +143,8 @@ namespace HangmanLogic
                 GetNewRandamWord();
             }
 
-            _selectedCharacters += c.ToString();
-
             if (_guessWord.ToUpper().Contains(c.ToString().ToUpper()))
-            {
-                //_selectedCharacters.Insert(_selectedCharacters.Length, c.ToString());
-                
+            {                
                 PutCharacterIntoTheWord();
                 return true;
             }
@@ -141,7 +152,6 @@ namespace HangmanLogic
             {
                 return false;
             }
-
         }
 
         private void PutCharacterIntoTheWord()
@@ -168,34 +178,10 @@ namespace HangmanLogic
                 {                
                     _wordActualResult += "_";
                 }
+
+                _wordActualResult += " ";
             }
         }
-
-        public string GetSelectedCharacters()
-        {
-            return _selectedCharacters;
-        }
-
-        public string GetWordResult()
-        {
-            PutCharacterIntoTheWord();
-            return _wordActualResult;
-        }
-
-        public string GetGameStatus()
-        {
-            return "Game status";
-        }
-       
-        public void Paint( ref Graphics graphics)
-        {
-            Pen pen = new Pen(Color.BlueViolet);
-            pen.Width = 5;
-            graphics.DrawLine(pen, 70, 70, 170, 170);
-
-            DrawHangman();
-        }
-
 
         private void DrawHangman()
         {
@@ -236,11 +222,11 @@ namespace HangmanLogic
                     break;
                 case 10:
                     DrawLine(150, 230, 120, 300);
+                    _gameStatus = GameStatus.GameOver;
                     break;
                 default:
                     break;
-            }
-            
+            }            
         }
 
         private void DrawLine(int x1, int y1, int x2, int y2)
@@ -264,7 +250,5 @@ namespace HangmanLogic
             Point[] points = new Point[] { new Point(x1, y1), new Point(x2, y2), new Point(x3, y3) };
             _graphics.DrawCurve(pen, points);
         }
-
-
     }
 }
